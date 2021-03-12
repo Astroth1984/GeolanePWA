@@ -13,13 +13,13 @@
                 </mat-expansion-panel-header>
 
                 <mat-form-field>
-                    <mat-label>First name</mat-label>
-                    <input class="authorize-click" matInput>
+                    <mat-label>Longueur en <strong>cm</strong></mat-label>
+                    <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="longueur">
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Age</mat-label>
-                    <input class="authorize-click" matInput type="number" min="1">
+                    <mat-label>Hauteur en <strong>cm</strong></mat-label>
+                    <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="hauteur">
                 </mat-form-field>
                 <mat-action-row>
                     <button mat-button class="authorize-click" color="primary" (click)="panel2.toggle()">Next</button>
@@ -37,10 +37,22 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
 
-                <mat-form-field>
+                <!-- <mat-form-field>
                     <mat-label>Country</mat-label>
                     <input class="authorize-click" matInput>
-                </mat-form-field>
+                </mat-form-field> -->
+
+                <ng-container *ngIf="hauteur > longueur; else elseBlock">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image"></div>
+                            <mat-card-title>Portrait</mat-card-title>
+                        </mat-card-header>
+                        <img mat-card-image src="https://ctl.s6img.com/society6/img/EAuHNimtSjSW_4lbK-uL3sdGdVY/w_1500/prints/~artwork/s6-original-art-uploads/society6/uploads/misc/b91b7386b323499ba16ad7824b5db748/~~/salvador-dali-portrait1123378-prints.jpg" alt="Portrait">
+                    </mat-card>
+                </ng-container>
+
+
 
                 <mat-action-row>
                     <button mat-button class="authorize-click" color="warn" (click)="panel1.toggle()">Previous</button>
@@ -51,3 +63,14 @@
     </main>
 
 </div>
+
+<ng-template #elseBlock>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Paysage</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="https://static.posters.cz/image/750/tableuax/salvador-dali-paysage-aux-papillons-i69847.jpg" alt="Paysage">
+
+    </mat-card>
+</ng-template>

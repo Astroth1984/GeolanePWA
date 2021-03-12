@@ -8,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigComponent implements OnInit {
   public forcedState = false;
+  isCondition: boolean | undefined;
+  longueur: number = 0;
+  hauteur: number = 0;
+  previsual: string | undefined;
   constructor() { }
 
   ngOnInit(): void {
+
   }
   step = 0;
 
@@ -25,4 +30,13 @@ export class ConfigComponent implements OnInit {
   prevStep() {
     this.step--;
   }
+  // visual() {
+  //   if (this.hauteur > this.longueur) {
+  //     this.previsual === 'portrait';
+
+  //   } else {
+  //     this.previsual === 'paysage';
+
+  //   }
+  // }
 }

@@ -7,6 +7,10 @@
     align-content: space-between;
 }
 
+.example-card {
+    max-width: 300px;
+}
+
 .prevent-click {
     pointer-events: none;
 }
