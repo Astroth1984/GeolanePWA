@@ -1,0 +1,53 @@
+<div class="container">
+    <main>
+        <mat-accordion class="example-headers-align prevent-click">
+            <mat-expansion-panel #panel1 [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Personal data
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Type your name and age
+                        <mat-icon>account_circle</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-form-field>
+                    <mat-label>First name</mat-label>
+                    <input class="authorize-click" matInput>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Age</mat-label>
+                    <input class="authorize-click" matInput type="number" min="1">
+                </mat-form-field>
+                <mat-action-row>
+                    <button mat-button class="authorize-click" color="primary" (click)="panel2.toggle()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel #panel2 [hideToggle]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Destination
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Type the country name
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-form-field>
+                    <mat-label>Country</mat-label>
+                    <input class="authorize-click" matInput>
+                </mat-form-field>
+
+                <mat-action-row>
+                    <button mat-button class="authorize-click" color="warn" (click)="panel1.toggle()">Previous</button>
+                    <button mat-button class="authorize-click" color="primary" (click)="nextStep()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </main>
+
+</div>

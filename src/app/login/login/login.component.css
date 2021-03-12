@@ -1,0 +1,829 @@
+.main__container {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(to right, #250008cc, #8519319c);
+}
+
+.login-card {
+    position: relative;
+    display: flex;
+    background: linear-gradient(to right, #5cc4f5, #cc00ff);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 85%;
+    min-height: 80vh;
+    animation: fadein 1s ease-in-out;
+}
+
+.login-header {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 2rem;
+    color: #0c1066;
+    letter-spacing: 0.2rem;
+    font-weight: bold;
+    animation: fadein 1.75s ease-in-out;
+}
+
+.login-content {
+    flex: 2 2;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    animation: fadein 1.5s ease-in-out;
+    min-height: 100%;
+}
+
+.login-form {
+    display: flex;
+    flex-flow: column;
+    width: 80%;
+    align-items: center;
+    animation: slidedown 2s ease-in-out;
+}
+
+.login-aside {
+    animation: fadein 2.25s ease-in-out;
+    flex: 3 3;
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: column;
+    min-height: 100%;
+    border-radius: 0 10px 10px 0;
+    background: url("https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/img/demo-1-bg.jpg") no-repeat center center;
+    background-size: cover;
+    position: relative;
+}
+
+.login-aside-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(160, 147, 147, 0);
+    border-radius: 0 10px 10px 0;
+}
+
+.login-aside-hr {
+    height: 0.5rem;
+    width: 8rem;
+    border: none;
+    outline: none;
+    background-color: white;
+    position: relative;
+    z-index: 5;
+    margin: 0 0 8rem 3rem;
+    animation: slideright 4s ease-out;
+}
+
+.login-welcome-text {
+    color: white;
+    letter-spacing: 0.03rem;
+    margin: 0 0 2rem 3rem;
+    font-size: 2.75rem;
+    position: relative;
+    z-index: 5;
+    animation: slideright 2s ease-out;
+}
+
+.login-input {
+    margin: 1rem 0;
+    padding: 1.5rem;
+    border-radius: 2rem;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 2rem rgba(0, 0, 255, 0.3);
+    width: 80%;
+}
+
+.login-btn {
+    background-color: #00ff9b;
+    padding: 1rem;
+    border-radius: 2rem;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    width: 50%;
+    box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
+}
+
+.login-btn:hover {
+    background: linear-gradient(to right, #e003f4, #0077ff);
+}
+
+.login-input::placeholder {
+    color: #39437a;
+    font-size: 0.9rem;
+}
+
+.btn-disabled {
+    background-color: lightgray;
+}
+
+.btn-disabled:hover {
+    background: lightgray;
+}
+
+.signup-link-wrapper {
+    margin-top: 3rem;
+    animation: slideup 1s ease-in-out;
+}
+
+.signup-link {
+    text-transform: uppercase;
+    margin-top: 1rem;
+    text-decoration: none;
+    color: #ff3a82;
+    margin-left: 1rem;
+}
+
+@media screen and (max-width: 959px) {
+    .login-aside {
+        display: none;
+    }
+    .wrapper {
+        display: none;
+    }
+}
+
+.wrapper {
+    position: absolute;
+    float: right;
+    margin: 400px 200px;
+}
+
+.line {
+    position: absolute;
+    top: 0px;
+    width: 2px;
+    height: 8px;
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.circle {
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.circle-top {
+    top: 0px;
+    left: -3.5px;
+}
+
+.circle-bottom {
+    bottom: 0px;
+    left: -3.5px;
+}
+
+.dot {
+    position: absolute;
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    left: -1.5px;
+}
+
+.line1 {
+    margin-left: 0px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+}
+
+.line1>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line1>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line1>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+}
+
+.line1>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+}
+
+.line1>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+}
+
+.line1>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) infinite;
+}
+
+.line2 {
+    margin-left: 35px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+}
+
+.line2>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line2>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line2>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+}
+
+.line2>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+}
+
+.line2>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+}
+
+.line2>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .05s infinite;
+}
+
+.line3 {
+    margin-left: 70px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+}
+
+.line3>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line3>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line3>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+}
+
+.line3>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+}
+
+.line3>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+}
+
+.line3>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .1s infinite;
+}
+
+.line4 {
+    margin-left: 105px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+}
+
+.line4>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line4>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line4>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+}
+
+.line4>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+}
+
+.line4>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+}
+
+.line4>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .15s infinite;
+}
+
+.line5 {
+    margin-left: 140px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+}
+
+.line5>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line5>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line5>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+}
+
+.line5>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+}
+
+.line5>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+}
+
+.line5>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .2s infinite;
+}
+
+.line6 {
+    margin-left: 175px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+}
+
+.line6>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line6>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line6>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+}
+
+.line6>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+}
+
+.line6>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+}
+
+.line6>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .25s infinite;
+}
+
+.line7 {
+    margin-left: 210px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+}
+
+.line7>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line7>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line7>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+}
+
+.line7>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+}
+
+.line7>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+}
+
+.line7>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .3s infinite;
+}
+
+.line8 {
+    margin-left: 245px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+}
+
+.line8>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line8>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line8>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+}
+
+.line8>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+}
+
+.line8>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+}
+
+.line8>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .35s infinite;
+}
+
+.line9 {
+    margin-left: 280px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+}
+
+.line9>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line9>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line9>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+}
+
+.line9>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+}
+
+.line9>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+}
+
+.line9>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .4s infinite;
+}
+
+.line10 {
+    margin-left: 315px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+}
+
+.line10>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line10>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line10>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+}
+
+.line10>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+}
+
+.line10>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+}
+
+.line10>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .45s infinite;
+}
+
+.line11 {
+    margin-left: 350px;
+    background-color: rgba(0, 255, 234, 0.61);
+    -webkit-animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+    animation: line 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+}
+
+.line11>span {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line11>.dotted>.dot {
+    background-color: rgba(0, 255, 234, 0.61);
+}
+
+.line11>.dotted>.dot-top {
+    top: 0px;
+    -webkit-animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+    animation: dot-top 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+}
+
+.line11>.dotted>.dot-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+    animation: dot-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+}
+
+.line11>.dotted>.dot-middle-top {
+    top: 0px;
+    -webkit-animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+    animation: dot-middle-top 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+}
+
+.line11>.dotted>.dot-middle-bottom {
+    bottom: 0px;
+    -webkit-animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+    animation: dot-middle-bottom 2s cubic-bezier(0.250, 0, 0.705, 1) .5s infinite;
+}
+
+@-webkit-keyframes line {
+    0% {
+        height: 4px;
+        top: 0px;
+        left: 0px;
+        -webkit-transform: rotate(-65deg)
+    }
+    10% {
+        height: 220px;
+        top: -110px;
+        left: 15px;
+    }
+    45% {
+        height: 200px;
+        top: -100px;
+        left: 25px;
+    }
+    70% {
+        height: 8px;
+        top: 0px;
+        left: 25px;
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        height: 8px;
+        top: 0px;
+        left: 15px;
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+@-webkit-keyframes dot-top {
+    0% {
+        top: -30px
+    }
+    10% {
+        top: -30px;
+    }
+    45% {
+        top: -25px;
+    }
+    60% {
+        top: 0px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+@-webkit-keyframes dot-bottom {
+    0% {
+        bottom: -30px
+    }
+    10% {
+        bottom: -30px;
+    }
+    45% {
+        bottom: -25px;
+    }
+    60% {
+        bottom: 0px;
+    }
+    100% {
+        bottom: 0px;
+    }
+}
+
+@-webkit-keyframes dot-middle-top {
+    0% {}
+    10% {}
+    45% {
+        top: 98px;
+    }
+    70% {
+        top: -50px;
+    }
+    85% {
+        top: 0px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+@-webkit-keyframes dot-middle-bottom {
+    0% {}
+    10% {}
+    45% {
+        bottom: 98px;
+    }
+    70% {
+        bottom: -50px;
+    }
+    85% {
+        bottom: 0px;
+    }
+    100% {
+        bottom: 0px;
+    }
+}
+
+@keyframes line {
+    0% {
+        height: 4px;
+        top: 0px;
+        left: 0px;
+        transform: rotate(-65deg)
+    }
+    10% {
+        height: 220px;
+        top: -110px;
+        left: 15px;
+    }
+    45% {
+        height: 200px;
+        top: -100px;
+        left: 25px;
+    }
+    70% {
+        height: 8px;
+        top: 0px;
+        left: 25px;
+        transform: rotate(0deg);
+    }
+    100% {
+        height: 8px;
+        top: 0px;
+        left: 15px;
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes dot-top {
+    0% {
+        top: -30px
+    }
+    10% {
+        top: -30px;
+    }
+    45% {
+        top: -25px;
+    }
+    60% {
+        top: 0px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+@keyframes dot-bottom {
+    0% {
+        bottom: -30px
+    }
+    10% {
+        bottom: -30px;
+    }
+    45% {
+        bottom: -25px;
+    }
+    60% {
+        bottom: 0px;
+    }
+    100% {
+        bottom: 0px;
+    }
+}
+
+@keyframes dot-middle-top {
+    0% {}
+    10% {}
+    45% {
+        top: 78px;
+    }
+    70% {
+        top: -50px;
+    }
+    85% {
+        top: 0px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+@keyframes dot-middle-bottom {
+    0% {}
+    10% {}
+    45% {
+        bottom: 78px;
+    }
+    70% {
+        bottom: -50px;
+    }
+    85% {
+        bottom: 0px;
+    }
+    100% {
+        bottom: 0px;
+    }
+}
