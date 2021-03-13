@@ -1,0 +1,16 @@
+<div style="margin:auto; width: 70%; margin-top: 30px;">
+    <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
+</div>
+<h2 style="text-align:center">Data</h2>
+<!-- <div *ngFor="let passes of pass" class="group">
+    <p><b>Item :</b>{{posts.id}}</p>
+    <p><b>Title :</b> {{posts.title}}</p>
+    <p><b>Body: </b>{{posts.body}}</p>
+</div> -->
+
+<div *ngFor="let passes of pass" class="card group">
+    <img src="{{passes.url}}" alt="" style="width:100%">
+    <div class="container">
+        <p>{{passes.title}}</p>
+    </div>
+</div>

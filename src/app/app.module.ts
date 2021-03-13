@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { PassPageComponent } from './pages/pass-par-tout/pass-page/pass-page.component';
+import { SearchBarComponent } from './pages/pass-par-tout/search-bar/search-bar.component';
+
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { ReactiveFormsModule } from '@angular/forms';
+
+/*Mock API Service*/
+import { DataService } from './pages/pass-par-tout/data.service';
 
 
 @NgModule({
@@ -35,11 +45,14 @@ import { MatInputModule } from '@angular/material/input';
     MainNavComponent,
     FramTypeComponent,
     CartComponent,
-    ConfigComponent
+    ConfigComponent,
+    PassPageComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     MatCardModule,
     BrowserAnimationsModule,
@@ -54,7 +67,10 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    ReactiveFormsModule
 
   ],
   exports: [
@@ -63,7 +79,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

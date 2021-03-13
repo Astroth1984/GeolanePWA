@@ -1,73 +1,76 @@
-<div class="container">
-    <main>
-        <mat-accordion class="example-headers-align prevent-click">
-            <mat-expansion-panel #panel1 [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Personal data
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Type your name and age
-                        <mat-icon>account_circle</mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
+<div fxLayout="column" fxLayoutAlign="space-around center">
+    <div class="container">
+        <main>
+            <mat-accordion class="example-headers-align prevent-click">
+                <mat-expansion-panel #panel1 [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Personal data
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Type your name and age
+                            <mat-icon>account_circle</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
 
-                <mat-form-field>
-                    <mat-label>Longueur en <strong>cm</strong></mat-label>
-                    <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="longueur">
-                </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Longueur en <strong>cm</strong></mat-label>
+                        <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="longueur" required placeholder="Longueur en cm">
+                    </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>Hauteur en <strong>cm</strong></mat-label>
-                    <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="hauteur">
-                </mat-form-field>
-                <mat-action-row>
-                    <button mat-button class="authorize-click" color="primary" (click)="panel2.toggle()">Next</button>
-                </mat-action-row>
-            </mat-expansion-panel>
+                    <mat-form-field>
+                        <mat-label>Hauteur en <strong>cm</strong></mat-label>
+                        <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="hauteur">
+                    </mat-form-field>
+                    <mat-action-row>
+                        <button mat-button class="authorize-click" color="primary" (click)="panel2.toggle()">Next</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
 
-            <mat-expansion-panel #panel2 [hideToggle]="true">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Destination
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Type the country name
-                        <mat-icon>remove_red_eye</mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
+                <mat-expansion-panel #panel2 [hideToggle]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Destination
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Type the country name
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
 
-                <!-- <mat-form-field>
-                    <mat-label>Country</mat-label>
-                    <input class="authorize-click" matInput>
-                </mat-form-field> -->
+                    <!-- <mat-form-field>
+                        <mat-label>Country</mat-label>
+                        <input class="authorize-click" matInput>
+                    </mat-form-field> -->
+                    <div fxLayout="column" fxLayoutAlign="space-around center">
+                        <ng-container *ngIf="hauteur > longueur; else elseBlock">
+                            <mat-card class="example-card">
+                                <mat-card-header>
+                                    <mat-card-title>Portrait</mat-card-title>
+                                </mat-card-header>
+                                <img mat-card-image src="https://ctl.s6img.com/society6/img/EAuHNimtSjSW_4lbK-uL3sdGdVY/w_1500/prints/~artwork/s6-original-art-uploads/society6/uploads/misc/b91b7386b323499ba16ad7824b5db748/~~/salvador-dali-portrait1123378-prints.jpg" alt="Portrait">
+                            </mat-card>
+                        </ng-container>
+                    </div>
 
-                <ng-container *ngIf="hauteur > longueur; else elseBlock">
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <div mat-card-avatar class="example-header-image"></div>
-                            <mat-card-title>Portrait</mat-card-title>
-                        </mat-card-header>
-                        <img mat-card-image src="https://ctl.s6img.com/society6/img/EAuHNimtSjSW_4lbK-uL3sdGdVY/w_1500/prints/~artwork/s6-original-art-uploads/society6/uploads/misc/b91b7386b323499ba16ad7824b5db748/~~/salvador-dali-portrait1123378-prints.jpg" alt="Portrait">
-                    </mat-card>
-                </ng-container>
 
 
 
-                <mat-action-row>
-                    <button mat-button class="authorize-click" color="warn" (click)="panel1.toggle()">Previous</button>
-                    <button mat-button class="authorize-click" color="primary" (click)="nextStep()">Next</button>
-                </mat-action-row>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </main>
+                    <mat-action-row>
+                        <button mat-button class="authorize-click" color="warn" (click)="panel1.toggle()">Previous</button>
+                        <button mat-button class="authorize-click" color="primary" (click)="nextStep()">Next</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </main>
 
+    </div>
 </div>
+
 
 <ng-template #elseBlock>
     <mat-card class="example-card">
         <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Paysage</mat-card-title>
         </mat-card-header>
         <img mat-card-image src="https://static.posters.cz/image/750/tableuax/salvador-dali-paysage-aux-papillons-i69847.jpg" alt="Paysage">
