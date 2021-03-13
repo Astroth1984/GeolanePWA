@@ -1,0 +1,18 @@
+<div class="ng-autocomplete">
+    <ng-autocomplete [data]="refrences" [searchKeyword]="keyword" placeholder="Entrer votre Reference" historyIdentifier="refrences" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (selected)='selectEvent($event)'>
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+        <div class="item">
+            <img src="{{item.url}}" height="25">
+            <span [innerHTML]="item.title"></span> &nbsp; | &nbsp;
+            <small>identifiant: {{item.id}}</small>
+        </div>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+    </ng-template>
+</div>
+
+<p><span>You selected: <code>{{ref | json}}</code></span></p>

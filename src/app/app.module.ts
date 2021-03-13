@@ -26,15 +26,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PassPageComponent } from './pages/pass-par-tout/pass-page/pass-page.component';
-import { SearchBarComponent } from './pages/pass-par-tout/search-bar/search-bar.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PassParToutComponent } from './pages/pass-par-tout/pass-par-tout.component';
 
-/*Mock API Service*/
-import { DataService } from './pages/pass-par-tout/data.service';
+
 
 
 @NgModule({
@@ -46,8 +45,7 @@ import { DataService } from './pages/pass-par-tout/data.service';
     FramTypeComponent,
     CartComponent,
     ConfigComponent,
-    PassPageComponent,
-    SearchBarComponent
+    PassParToutComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +68,8 @@ import { DataService } from './pages/pass-par-tout/data.service';
     MatInputModule,
     MatAutocompleteModule,
     MatChipsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AutocompleteLibModule
 
   ],
   exports: [
@@ -79,7 +78,7 @@ import { DataService } from './pages/pass-par-tout/data.service';
     MatButtonModule,
     MatIconModule
   ],
-  providers: [DataService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
