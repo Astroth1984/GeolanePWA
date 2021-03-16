@@ -1,16 +1,13 @@
-<div class="ng-autocomplete">
-    <ng-autocomplete [data]="refrences" [searchKeyword]="keyword" placeholder="Entrer votre Reference" historyIdentifier="refrences" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (selected)='selectEvent($event)' [(ngModel)]='ref'>
-    </ng-autocomplete>
+<mat-form-field class="example-full-width">
 
-    <ng-template #itemTemplate let-item>
-        <div class="item">
-            <img src="{{item.url}}" height="25">
-            <span [innerHTML]="item.title"></span> &nbsp; | &nbsp;
-            <small>identifiant: {{item.id}}</small>
-        </div>
-    </ng-template>
+    <input matInput placeholder="Search Reference" [matAutocomplete]="auto" [formControl]="referenceCtrl">
 
-    <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-    </ng-template>
-</div>
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let reference of filteredReference | async" [value]="reference.title">
+
+            <img class="example-option-img" aria-hidden [src]="reference.url" height="25">
+            <span>{{reference.title}}</span>
+
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

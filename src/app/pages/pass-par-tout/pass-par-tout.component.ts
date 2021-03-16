@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { Ref } from './Ref'
 
 @Component({
@@ -8,9 +11,12 @@ import { Ref } from './Ref'
 })
 export class PassParToutComponent implements OnInit {
 
+  referenceCtrl = new FormControl();
+  filteredReference!: Observable<Ref[]>;
+
   keyword = 'title';
   ref!: Ref;
-  refrences = [
+  references: Ref[] = [
     {
       "id": 1,
       "title": "18654 - REF",
@@ -58,7 +64,13 @@ export class PassParToutComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor() {
+    this.filteredReference = this.referenceCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(reference => reference ? this._filterReferences(reference) : this.references.slice())
+      );
+  }
 
   ngOnInit(): void {
   }
@@ -70,6 +82,11 @@ export class PassParToutComponent implements OnInit {
     // this.ref.push(item.target.value);
     console.log(item)
     item = this.ref;
+  }
+  private _filterReferences(value: string): Ref[] {
+    const filterValue = value.toLowerCase();
+
+    return this.references.filter(state => state.title.toLowerCase().indexOf(filterValue) === 0);
   }
 
 
