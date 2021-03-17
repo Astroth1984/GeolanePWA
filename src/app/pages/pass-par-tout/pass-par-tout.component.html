@@ -1,13 +1,38 @@
-<mat-form-field class="example-full-width">
+<div style="margin:auto; width: 70%; margin-top: 30px;">
+    <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
 
-    <input matInput placeholder="Search Reference" [matAutocomplete]="auto" [formControl]="referenceCtrl">
+</div>
 
-    <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let reference of filteredReference | async" [value]="reference.title">
+<h2 style="text-align:center">Data</h2>
+<div *ngFor="let refs of ref" class="group">
+    <img src="{{refs.url}" alt="">
+    <p><b>Item :</b>{{refs.id}}</p>
+    <p><b>Title :</b> {{refs.title}}</p>
+</div>
 
-            <img class="example-option-img" aria-hidden [src]="reference.url" height="25">
-            <span>{{reference.title}}</span>
-
-        </mat-option>
-    </mat-autocomplete>
-</mat-form-field>
+<div class="blog-slider">
+    <div *ngFor="let refs of ref" class="blog-slider__wrp swiper-wrapper">
+        <div class="blog-slider__item swiper-slide">
+            <div class="blog-slider__img">
+                <img src="{{refs.url}}" alt="">
+            </div>
+            <div class="blog-slider__content">
+                <div class="blog-slider__title">{{refs.title}}</div>
+                <form class="example-form">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Dimension</mat-label>
+                        <input type="number" matInput [formControl]="dimFormControl" placeholder="dimension">
+                        <mat-error *ngIf="dimFormControl.hasError('') && !dimFormControl.hasError('required')">
+                            Please enter a valid dimension
+                        </mat-error>
+                        <mat-error *ngIf="dimFormControl.hasError('required')">
+                            dimension is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </form>
+                <a href="#" class="blog-slider__button">READ MORE</a>
+            </div>
+        </div>
+    </div>
+    <div class="blog-slider__pagination"></div>
+</div>

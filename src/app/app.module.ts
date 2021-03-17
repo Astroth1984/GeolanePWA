@@ -32,6 +32,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PassParToutComponent } from './pages/pass-par-tout/pass-par-tout.component';
+import { SearchBarComponent } from './pages/pass-par-tout/search-bar/search-bar.component';
+import { DataService } from './pages/pass-par-tout/data.service';
 
 
 
@@ -45,7 +47,8 @@ import { PassParToutComponent } from './pages/pass-par-tout/pass-par-tout.compon
     FramTypeComponent,
     CartComponent,
     ConfigComponent,
-    PassParToutComponent
+    PassParToutComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,7 @@ import { PassParToutComponent } from './pages/pass-par-tout/pass-par-tout.compon
     MatButtonModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
