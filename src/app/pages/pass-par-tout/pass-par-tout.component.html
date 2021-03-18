@@ -3,36 +3,86 @@
 
 </div>
 
-<h2 style="text-align:center">Data</h2>
+
 <div *ngFor="let refs of ref" class="group">
     <img src="{{refs.url}" alt="">
     <p><b>Item :</b>{{refs.id}}</p>
     <p><b>Title :</b> {{refs.title}}</p>
 </div>
 
-<div class="blog-slider">
-    <div *ngFor="let refs of ref" class="blog-slider__wrp swiper-wrapper">
-        <div class="blog-slider__item swiper-slide">
-            <div class="blog-slider__img">
-                <img src="{{refs.url}}" alt="">
-            </div>
-            <div class="blog-slider__content">
-                <div class="blog-slider__title">{{refs.title}}</div>
-                <form class="example-form">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Dimension</mat-label>
-                        <input type="number" matInput [formControl]="dimFormControl" placeholder="dimension">
-                        <mat-error *ngIf="dimFormControl.hasError('') && !dimFormControl.hasError('required')">
-                            Please enter a valid dimension
-                        </mat-error>
-                        <mat-error *ngIf="dimFormControl.hasError('required')">
-                            dimension is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </form>
-                <a href="#" class="blog-slider__button">READ MORE</a>
+
+<div class="container">
+
+    <div *ngFor="let refs of ref" class="card">
+        <div class="inner_part">
+            <img class="img" src="{{refs.url}}">
+
+            <div class=" content_1">
+                <div class="title">{{refs.title}}</div>
+                <div class="text">
+                    Istanbul, a fascinating city built on two Continents, divided by the Bosphorus Strait..
+                </div>
+                <button>Read More</button>
             </div>
         </div>
     </div>
-    <div class="blog-slider__pagination"></div>
+</div>
+
+
+<div class="box-container" fxLayout="column" [ngStyle.lt-sm]="'min-height: 800px;'">
+    <div class="app-title">Simple example app for the ngx-swiper-wrapper</div>
+
+    <div class="info-container">
+        You can change the basic settings of the Swiper area by clicking the buttons on the controls pane.
+    </div>
+
+    <div class="horizontal-container" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="stretch" fxFlex="auto">
+        <div class="vertical-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="50%">
+            <div class="box-title">Controls</div>
+
+            <div class="action-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
+                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleType()'>{{(type == "component") ? "Switch to directive" : "Switch to component"}}</div>
+
+                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleDirection()'>{{(config.direction == "horizontal") ? "Change to vertical" : "Change to horizontal"}}</div>
+
+                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleSlidesPerView()'>Toggle slides per view</div>
+
+                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleOverlayControls()'>Toggle overlay controls</div>
+
+                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleKeyboardControl()'>{{config.keyboard ? "Disable arrow keys" : "Enable arrow keys"}}</div>
+
+                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleMouseWheelControl()'>{{config.mousewheel ? "Disable mouse wheel" : "Enable mouse wheel"}}</div>
+            </div>
+        </div>
+
+        <div class="vertical-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="50%">
+            <div class="box-title">Swiper</div>
+
+            <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
+                <swiper *ngIf="type == 'component' && show" class="swiper-container" fxFlex="auto" [config]="config" [disabled]="disabled" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
+                    <div *ngFor="let slide of slides" class="swiper-slide">
+                        <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+                            {{slide}}
+                        </div>
+                    </div>
+                </swiper>
+
+                <div *ngIf="type == 'directive' && show" class="swiper-container" [disabled]="disabled" [swiper]="config" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
+                    <div class="swiper-wrapper">
+                        <div *ngFor="let slide of slides" class="swiper-slide">
+                            <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+                                {{slide}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-scrollbar" [hidden]="config.scrollbar === false"></div>
+                    <div class="swiper-pagination" [hidden]="config.pagination === false"></div>
+
+                    <div class="swiper-button-prev" [hidden]="config.navigation === false"></div>
+                    <div class="swiper-button-next" [hidden]="config.navigation === false"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -34,6 +34,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PassParToutComponent } from './pages/pass-par-tout/pass-par-tout.component';
 import { SearchBarComponent } from './pages/pass-par-tout/search-bar/search-bar.component';
 import { DataService } from './pages/pass-par-tout/data.service';
+import {
+  SwiperModule, SwiperConfigInterface,
+  SWIPER_CONFIG
+} from 'ngx-swiper-wrapper';
+
 
 
 
@@ -72,7 +77,8 @@ import { DataService } from './pages/pass-par-tout/data.service';
     MatAutocompleteModule,
     MatChipsModule,
     ReactiveFormsModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    SwiperModule
 
   ],
   exports: [
