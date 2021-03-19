@@ -38,6 +38,7 @@ import {
   SwiperModule, SwiperConfigInterface,
   SWIPER_CONFIG
 } from 'ngx-swiper-wrapper';
+import { EncadrementComponent } from './pages/encadrement/encadrement.component';
 
 
 
@@ -53,7 +54,8 @@ import {
     CartComponent,
     ConfigComponent,
     PassParToutComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    EncadrementComponent
   ],
   imports: [
     BrowserModule,

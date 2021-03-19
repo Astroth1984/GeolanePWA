@@ -3,19 +3,19 @@
 </div>
 
 
-<div *ngFor="let refs of ref" class="group">
+<!-- <div *ngFor="let refs of ref" class="group">
     <img src="{{refs.url}}" alt="">
     <p><b>Item :</b>{{refs.id}}</p>
     <p><b>Title :</b> {{refs.title}}</p>
-</div>
+</div> -->
 
 
-<div class="box-container" fxLayout="column" [ngStyle.lt-sm]="'min-height: 800px;'">
-    <div class="app-title">Simple example app for the ngx-swiper-wrapper</div>
+<div *ngFor="let refs of ref" class="box-container" fxLayout="column" [ngStyle.lt-sm]="'min-height: 800px;'">
+    <!-- <div class="app-title">Simple example app for the ngx-swiper-wrapper</div>
 
     <div class="info-container">
         You can change the basic settings of the Swiper area by clicking the buttons on the controls pane.
-    </div>
+    </div> -->
 
     <div class="horizontal-container" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="stretch" fxFlex="auto">
         <div class="vertical-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="50%">
@@ -41,9 +41,9 @@
 
             <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
                 <swiper *ngIf="type == 'component' && show" class="swiper-container" fxFlex="auto" [config]="config" [disabled]="disabled" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
-                    <div *ngFor="let slide of slides" class="swiper-slide">
+                    <div class="swiper-slide">
                         <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-                            {{slide}}
+                            <img src="{{refs.url}}" alt="">
                         </div>
                     </div>
                 </swiper>

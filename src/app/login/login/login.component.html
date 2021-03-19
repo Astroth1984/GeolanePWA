@@ -8,7 +8,7 @@
             <form class="login-form" #authform="ngForm">
                 <input ngModel type="email" autofocus placeholder="Email" name="email" class="login-input" required>
                 <input ngModel type="password" placeholder="Password" name="password" class="login-input" minlength="6" required>
-                <input type="submit" name="submit" value="Login" class="login-btn" [class.btn-disabled]="!authform.form.valid" [disabled]="!authform.form.valid">
+                <input routerLink='/home' type="submit" name="submit" value="Login" class="login-btn" [class.btn-disabled]="!authform.form.valid" [disabled]="!authform.form.valid">
             </form>
             <div class="signup-link-wrapper">
                 <span class="signup-notice">Don't have an account?</span>

@@ -5,22 +5,22 @@
                 <mat-expansion-panel #panel1 [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Personal data
+
                         </mat-panel-title>
                         <mat-panel-description>
-                            Type your name and age
+                            Contraintes de dimensionnement
                             <mat-icon>account_circle</mat-icon>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
 
                     <mat-form-field appearance="outline">
-                        <mat-label>Longueur en <strong>cm</strong></mat-label>
-                        <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="longueur" required placeholder="Longueur en cm">
+                        <mat-label>Largeur en <strong>cm</strong></mat-label>
+                        <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="longueur" required placeholder="Largeur en cm">
                     </mat-form-field>
 
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <mat-label>Hauteur en <strong>cm</strong></mat-label>
-                        <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="hauteur">
+                        <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="hauteur" required placeholder="Hauteur en cm">
                     </mat-form-field>
                     <mat-action-row>
                         <button mat-button class="authorize-click" color="primary" (click)="panel2.toggle()">Next</button>
@@ -30,10 +30,10 @@
                 <mat-expansion-panel #panel2 [hideToggle]="true">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Destination
+
                         </mat-panel-title>
                         <mat-panel-description>
-                            Type the country name
+                            Contraintes d’orientation
                             <mat-icon>remove_red_eye</mat-icon>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
