@@ -19,14 +19,28 @@ export class PassParToutComponent implements OnInit {
 
   /*Swiper*/
   public show: boolean = true;
+  public index!: number;
 
+  // public slides = [
+  //   'First slide',
+  //   'Second slide',
+  //   'Third slide',
+  //   'Fourth slide',
+  //   'Fifth slide',
+  //   'Sixth slide'
+  // ];
   public slides = [
-    'First slide',
-    'Second slide',
-    'Third slide',
-    'Fourth slide',
-    'Fifth slide',
-    'Sixth slide'
+    'https://picsum.photos/700/250/?image=27',
+    'https://picsum.photos/700/250/?image=22',
+    'https://picsum.photos/700/250/?image=61',
+    'https://picsum.photos/700/250/?image=23',
+    'https://picsum.photos/700/250/?image=24',
+    'https://picsum.photos/700/250/?image=26',
+    'https://picsum.photos/700/250/?image=41',
+    'https://picsum.photos/700/250/?image=28',
+    'https://picsum.photos/700/250/?image=21',
+    'https://picsum.photos/700/250/?image=20',
+    'https://picsum.photos/400/250/?image=75'
   ];
   public type: string = 'component';
 
@@ -58,6 +72,7 @@ export class PassParToutComponent implements OnInit {
 
   @ViewChild(SwiperComponent, { static: false }) componentRef?: SwiperComponent;
   @ViewChild(SwiperDirective, { static: false }) directiveRef?: SwiperDirective;
+  @ViewChild('swiper', { static: false }) swiper!: SwiperComponent;
   /*Swiper */
   dimFormControl = new FormControl('', [
     Validators.required
@@ -71,6 +86,7 @@ export class PassParToutComponent implements OnInit {
   }
 
   /*Swiper */
+
   public toggleType(): void {
     this.type = (this.type === 'component') ? 'directive' : 'component';
   }
@@ -126,6 +142,7 @@ export class PassParToutComponent implements OnInit {
 
   public onIndexChange(index: number): void {
     console.log('Swiper index: ', index);
+    this.index = index;
   }
 
   public onSwiperEvent(event: string): void {
