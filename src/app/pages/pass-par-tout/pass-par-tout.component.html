@@ -139,3 +139,48 @@
         </div>
     </div>
 </div> -->
+
+
+
+
+
+
+
+<div *ngFor='let refs of ref' class="blog-slider" fxLayout="column">
+    <div class="blog-slider__wrp">
+        <div class="blog-slider__item">
+            <img class="blog-slider__img" src="{{refs.url}}" alt="">
+            <div class="blog-slider__content">
+                <span class="blog-slider__code">{{refs.title}}</span>
+                <!-- <div class="blog-slider__title"></div> -->
+                <div class="example-container">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Haut en cm</mat-label>
+                        <input matInput #input type='number'>
+                        <mat-hint align="end">ex : 3,5 cm</mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Bas en cm</mat-label>
+                        <input matInput #input type='number'>
+                        <mat-hint align="end">ex : 3,5 cm</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="example-container">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Droite en cm</mat-label>
+                        <input matInput #input type='number'>
+                        <mat-hint align="end">ex : 3,5 cm</mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Gauche en cm</mat-label>
+                        <input matInput #input type='number'>
+                        <mat-hint align="end">ex : 3,5 cm</mat-hint>
+                    </mat-form-field>
+                </div>
+                <a href="#" class="blog-slider__button">Valider</a>
+            </div>
+        </div>
+    </div>
+</div>

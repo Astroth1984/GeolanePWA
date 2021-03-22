@@ -65,9 +65,9 @@ export class PassParToutComponent implements OnInit {
   };
 
   private pagination: PaginationOptions = {
-    el: '.swiper-pagination',
-    clickable: true,
-    hideOnClick: false
+    // el: '.swiper-pagination',
+    el: '.blog-slider__pagination',
+    clickable: true
   };
 
   @ViewChild(SwiperComponent, { static: false }) componentRef?: SwiperComponent;
