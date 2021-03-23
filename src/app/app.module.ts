@@ -40,6 +40,8 @@ import {
 } from 'ngx-swiper-wrapper';
 import { EncadrementComponent } from './pages/encadrement/encadrement.component';
 
+import { ControlValueAccessor } from '@angular/forms';
+
 
 
 

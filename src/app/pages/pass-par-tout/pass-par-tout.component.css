@@ -419,3 +419,206 @@ span {
 .example-container .mat-form-field+.mat-form-field {
     margin-left: 12px;
 }
+
+
+/****************************************************/
+
+.radio--card-group {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadein 1.75s ease-in-out;
+}
+
+.radio--card-group .radio--card__item {
+    position: relative;
+    width: 185px;
+    min-height: 185px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.radio--card-group .radio--card__item .radio--card__content {
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.radio--card-group .radio--card__item .radio--card__content .radio--card__img {
+    max-width: 150px;
+}
+
+.radio--card-group .radio--card__item input[type=radio] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    opacity: 0;
+}
+
+.radio--card-group .radio--card__item input[type=radio]+label:before {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    content: " ";
+    border-radius: 5px;
+}
+
+.radio--card-group .radio--card__item input[type=radio]+label:after {
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    right: 20px;
+    top: 15px;
+    content: " ";
+    vertical-align: top;
+    transform: rotate(0deg);
+    border-bottom: 4px solid #fd6638;
+    border-right: 4px solid #fd6638;
+    opacity: 0;
+}
+
+.radio--card-group .radio--card__item input[type=radio]:focus+label:before {
+    border: 1px solid #fd6638;
+}
+
+.radio--card-group .radio--card__item input[type=radio]:checked+label:before {
+    border: 2px solid #fd6638;
+}
+
+.radio--card-group .radio--card__item input[type=radio]:checked:focus+label:before {
+    box-shadow: 0 0 5px #fd6638;
+}
+
+.radio--card-group .radio--card__item input[type=radio]:checked+label:after {
+    transform: rotate(45deg);
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.radio--card__item2 {
+    position: relative;
+    width: 185px;
+    min-height: 185px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+/**********Colors************/
+
+.controls .radio-colors {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 40;
+}
+
+.form-input-check+label span {
+    display: inline-block;
+    width: 42x;
+    height: 42px;
+    margin: 0 4px 0 0;
+    vertical-align: middle;
+    background: #fff;
+    border: 1px solid #222;
+    cursor: pointer;
+    position: relative;
+    top: -2px;
+}
+
+.form-input-check:checked+label span {
+    background: #222;
+}
+
+.radio-colors {
+    margin-bottom: 0 !important;
+}
+
+.radio-colors label {
+    margin-bottom: 0;
+    color: gray;
+}
+
+.form-input-check {
+    display: none;
+}
+
+.radio-colors .form-input-check+label span {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin: 6px;
+    background: red;
+    border: none;
+}
+
+.radio-colors .form-input-check:checked+label span {
+    background: red;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px red;
+}
+
+.radio-colors.radio-colors-orange .form-input-check+label span {
+    background: #DF7139;
+}
+
+.radio-colors.radio-colors-orange .form-input-check:checked+label span {
+    background: #DF7139;
+    box-shadow: 0 0 0 3px #DF7139;
+}
+
+.radio-colors.radio-colors-red .form-input-check+label span {
+    background: #DD3D48;
+}
+
+.radio-colors.radio-colors-red .form-input-check:checked+label span {
+    background: #DD3D48;
+    box-shadow: 0 0 0 3px #DD3D48;
+}
+
+.radio-colors.radio-colors-yellow .form-input-check+label span {
+    background: #F3C252;
+}
+
+.radio-colors.radio-colors-yellow .form-input-check:checked+label span {
+    background: #F3C252;
+    box-shadow: 0 0 0 3px #F3C252;
+}
+
+.radio-colors.radio-colors-blue .form-input-check+label span {
+    background: #6291EE;
+}
+
+.radio-colors.radio-colors-blue .form-input-check:checked+label span {
+    background: #6291EE;
+    box-shadow: 0 0 0 3px #6291EE;
+}
+
+.radio-colors.radio-colors-green .form-input-check+label span {
+    background: #B2D86C;
+}
+
+.radio-colors.radio-colors-green .form-input-check:checked+label span {
+    background: #B2D86C;
+    box-shadow: 0 0 0 3px #B2D86C;
+}
+
+.hex-picker {
+    display: inline-block;
+    width: 42x;
+    height: 42px;
+    margin: 6px;
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
+    top: -2px;
+}

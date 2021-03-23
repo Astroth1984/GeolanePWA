@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -10,12 +10,15 @@ import { SwiperOptions } from 'swiper';
 import { PaginationOptions } from 'swiper/types/components/pagination';
 import { ScrollbarOptions } from 'swiper/types/components/scrollbar';
 
+
 @Component({
   selector: 'app-pass-par-tout',
   templateUrl: './pass-par-tout.component.html',
   styleUrls: ['./pass-par-tout.component.css']
 })
 export class PassParToutComponent implements OnInit {
+  personaliser: boolean = false;
+  confRef: boolean = true;
 
   /*Swiper*/
   public show: boolean = true;
@@ -83,6 +86,15 @@ export class PassParToutComponent implements OnInit {
 
   constructor(private dataService: DataService) {
 
+  }
+  writeValue(obj: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnChange(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnTouched(fn: any): void {
+    throw new Error('Method not implemented.');
   }
 
   /*Swiper */
@@ -171,6 +183,15 @@ export class PassParToutComponent implements OnInit {
     }
 
     console.log(this.ref);
+  }
+
+  perso(): void {
+    this.personaliser = true;
+    this.confRef = false;
+  }
+  parRef(): void {
+    this.personaliser = false;
+    this.confRef = true;
   }
 
 

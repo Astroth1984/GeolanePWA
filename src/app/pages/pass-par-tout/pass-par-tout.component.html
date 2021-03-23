@@ -1,4 +1,10 @@
-<div style="margin:auto; width: 70%; margin-top: 30px;">
+<section>
+    <div class="example-button-row">
+        <button mat-button color="primary" (click)="perso()">Je souhaite configurer</button>
+        <button mat-button color="primary" (click)="parRef()">Par Ref</button>
+    </div>
+</section>
+<div *ngIf='confRef' style="margin:auto; width: 70%; margin-top: 30px;">
     <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
 </div>
 
@@ -145,42 +151,140 @@
 
 
 
+<div *ngIf='confRef'>
+    <div *ngFor='let refs of ref' class="blog-slider" fxLayout="column">
+        <div class="blog-slider__wrp">
+            <div class="blog-slider__item">
+                <img class="blog-slider__img" src="{{refs.url}}" alt="">
+                <div class="blog-slider__content">
+                    <span class="blog-slider__code">{{refs.title}}</span>
+                    <!-- <div class="blog-slider__title"></div> -->
+                    <div class="example-container">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Haut en cm</mat-label>
+                            <input matInput #input type='number'>
+                            <mat-hint align="end">ex : 3,5 cm</mat-hint>
+                        </mat-form-field>
 
-<div *ngFor='let refs of ref' class="blog-slider" fxLayout="column">
-    <div class="blog-slider__wrp">
-        <div class="blog-slider__item">
-            <img class="blog-slider__img" src="{{refs.url}}" alt="">
-            <div class="blog-slider__content">
-                <span class="blog-slider__code">{{refs.title}}</span>
-                <!-- <div class="blog-slider__title"></div> -->
-                <div class="example-container">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Haut en cm</mat-label>
-                        <input matInput #input type='number'>
-                        <mat-hint align="end">ex : 3,5 cm</mat-hint>
-                    </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Bas en cm</mat-label>
+                            <input matInput #input type='number'>
+                            <mat-hint align="end">ex : 3,5 cm</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="example-container">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Droite en cm</mat-label>
+                            <input matInput #input type='number'>
+                            <mat-hint align="end">ex : 3,5 cm</mat-hint>
+                        </mat-form-field>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Bas en cm</mat-label>
-                        <input matInput #input type='number'>
-                        <mat-hint align="end">ex : 3,5 cm</mat-hint>
-                    </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Gauche en cm</mat-label>
+                            <input matInput #input type='number'>
+                            <mat-hint align="end">ex : 3,5 cm</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <a href="#" class="blog-slider__button">Valider</a>
                 </div>
-                <div class="example-container">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Droite en cm</mat-label>
-                        <input matInput #input type='number'>
-                        <mat-hint align="end">ex : 3,5 cm</mat-hint>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill">
-                        <mat-label>Gauche en cm</mat-label>
-                        <input matInput #input type='number'>
-                        <mat-hint align="end">ex : 3,5 cm</mat-hint>
-                    </mat-form-field>
-                </div>
-                <a href="#" class="blog-slider__button">Valider</a>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<!-- <form>
+    <div class="cc-selector">
+        <input id="visa" type="radio" name="credit-card" value="4" />
+        <label class="drinkcard-cc visa" for="visa"></label>
+        <input id="mastercard" type="radio" name="credit-card" value="mastercard" />
+        <label class="drinkcard-cc mastercard" for="mastercard"></label>
+    </div>
+</form> -->
+
+
+
+<!-- ********************************************************** -->
+
+
+<div *ngIf='personaliser' class="radio--card-group">
+    <div class="radio--card__item">
+        <input id="id_gender_0" value="M" name="gender" type="radio">
+        <label for="id_gender_0"></label>
+        <div class="radio--card__content">
+            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
+            <p class="radio--card__text">Simple</p>
+        </div>
+    </div>
+    <div class="radio--card__item">
+        <input id="id_gender_1" value="M" name="gender" type="radio">
+        <label for="id_gender_1"></label>
+        <div class="radio--card__content">
+            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
+            <p class="radio--card__text">Double</p>
+        </div>
+    </div>
+    <div class="radio--card__item">
+        <input id="id_gender_2" value="M" name="gender" type="radio">
+        <label for="id_gender_2"></label>
+        <div class="radio--card__content">
+            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
+            <p class="radio--card__text">Epais</p>
+        </div>
+    </div>
+    <div class="radio--card__item">
+        <input id="id_gender_3" value="M" name="gender" type="radio">
+        <label for="id_gender_3"></label>
+        <div class="radio--card__content">
+            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
+            <p class="radio--card__text">Simple avec Filet</p>
+        </div>
+    </div>
+    <div class="radio--card__item">
+        <input id="id_gender_4" value="M" name="gender" type="radio">
+        <label for="id_gender_4"></label>
+        <div class="radio--card__content">
+            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
+            <p class="radio--card__text">Biseau Anglais</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- colors -->
+<section>
+    <div *ngIf='personaliser' class="radio--card-group">
+        <div class="controls">
+            <div class="formGroup">
+
+                <div class="radio-colors radio-colors-orange">
+                    <input class="form-input-check" type="radio" id="orange" name="swatch2">
+                    <label for="orange"><span></span></label>
+                </div>
+
+                <div class="radio-colors radio-colors-red">
+                    <input class="form-input-check" type="radio" id="red" name="swatch2">
+                    <label for="red"><span></span></label>
+                </div>
+
+                <div class="radio-colors radio-colors-yellow">
+                    <input class="form-input-check" type="radio" id="yellow" name="swatch2">
+                    <label for="yellow"><span></span></label>
+                </div>
+
+                <div class="radio-colors radio-colors-blue">
+                    <input class="form-input-check" type="radio" id="blue" name="swatch2">
+                    <label for="blue"><span></span></label>
+                </div>
+
+                <div class="radio-colors radio-colors-green">
+                    <input class="form-input-check" type="radio" id="green" name="swatch2">
+                    <label for="green"><span></span></label>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
