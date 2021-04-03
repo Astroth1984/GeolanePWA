@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { SharedDimensionsService } from 'src/app/services/shared-dimensions.service';
 
 @Component({
   selector: 'app-config',
@@ -6,15 +9,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./config.component.css'],
 
 })
-export class ConfigComponent implements OnInit {
+export class ConfigComponent implements OnInit, OnDestroy {
+
+
+  subscription!: Subscription;
+
   public forcedState = false;
   isCondition: boolean | undefined;
-  longueur: number = 0;
-  hauteur: number = 0;
+  longueur!: number;
+  hauteur!: number;
   previsual: string | undefined;
-  constructor() { }
+
+  orientHide: boolean = true;
+
+  dimensions = new FormGroup({
+    largeurForm: new FormControl(
+      this.longueur,
+      [
+        Validators.required,
+        Validators.pattern("^[0-9]{1,4}(\,[0-9])?$"),
+        Validators.max(180),
+        Validators.min(2)
+      ]
+    ),
+    hauteurForm: new FormControl(
+      this.hauteur,
+      [
+        Validators.required,
+        Validators.pattern("^[0-9]{1,4}(\,[0-9])?$"),
+        Validators.max(180),
+        Validators.min(2)
+      ]
+    )
+  });
+
+  constructor(private sharedDim: SharedDimensionsService) {
+
+  }
 
   ngOnInit(): void {
+
+    this.subscription = this.sharedDim.currentLongueur.subscribe(longueur => this.longueur = longueur);
+    this.subscription = this.sharedDim.currentHauteur.subscribe(hauteur => this.hauteur = hauteur);
+
 
   }
   step = 0;
@@ -30,13 +67,25 @@ export class ConfigComponent implements OnInit {
   prevStep() {
     this.step--;
   }
-  // visual() {
-  //   if (this.hauteur > this.longueur) {
-  //     this.previsual === 'portrait';
+  getErrorMessage() {
+    if (this.dimensions.hasError('required')) {
+      return 'You must enter a value';
+    }
 
-  //   } else {
-  //     this.previsual === 'paysage';
+    return this.dimensions.hasError('pattern') ? 'Not a valid email' : '';
+  }
 
-  //   }
-  // }
+  public checkError = (controlName: string, errorName: string) => {
+    return this.dimensions.controls[controlName].hasError(errorName);
+  }
+
+  onSubmit() {
+    this.orientHide = false;
+    this.sharedDim.changeLongueur(this.longueur);
+    this.sharedDim.changeHauteur(this.hauteur);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

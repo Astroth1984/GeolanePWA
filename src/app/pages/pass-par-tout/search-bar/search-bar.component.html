@@ -1,5 +1,5 @@
 <form class="example-form">
-    <mat-form-field class="example-full-width" style="width: 100%">
+    <mat-form-field class="example-full-width" appearance="outline">
         <mat-chip-list #chipList>
             <mat-chip style="margin-top:0.4em;" color="primary" *ngFor="let option of  this.dataService.searchOption" (removed)="removeOption(option)">
 

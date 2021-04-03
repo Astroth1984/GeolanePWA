@@ -1,290 +1,688 @@
-<section>
-    <div class="example-button-row">
-        <button mat-button color="primary" (click)="perso()">Je souhaite configurer</button>
-        <button mat-button color="primary" (click)="parRef()">Par Ref</button>
-    </div>
-</section>
-<div *ngIf='confRef' style="margin:auto; width: 70%; margin-top: 30px;">
-    <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
-</div>
+<button mat-raised-button color="primary" routerLink='/config' style="width: 8em;margin: 15px ;padding: 5px;"><mat-icon matPrefix>arrow_left</mat-icon> Reteur</button>
 
 
-<!-- <div *ngFor="let refs of ref" class="group">
-    <img src="{{refs.url}}" alt="">
-    <p><b>Item :</b>{{refs.id}}</p>
-    <p><b>Title :</b> {{refs.title}}</p>
-</div> -->
+<nav class="main-nav">
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance='outline'>
+            <mat-label>Réferences</mat-label>
+            <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-icon matSuffix>unfold_more</mat-icon>
+            <mat-autocomplete (optionSelected)="selectedOption($event)" autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    <img class="example-option-img" aria-hidden [src]="option.url" height="25"> {{option.title}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+    <ul>
+        <li>
+            <button mat-raised-button color="primary" style="width: 9em;" (click)='autoComp()'>Valider</button>
+        </li>
+        <li>
+            <button mat-raised-button color="accent" (click)='perso()'>Je souhaite configurer moi-même mon passe-partout</button>
+        </li>
+        <li>
+            <button mat-raised-button color="warn" (click)='sansPasse()'>Je ne souhaite pas de passe-partout</button>
+        </li>
+    </ul>
+</nav>
 
 
-<!-- <div class="box-container" fxLayout="column" [ngStyle.lt-sm]="'min-height: 800px;'">
-    <div class="app-title">Simple example app for the ngx-swiper-wrapper</div>
+<!-- Templates -->
+<ng-container *ngIf="longueur > 74 && hauteur > 114 || longueur > 114 && hauteur > 74 ; then conditionPasse; else configuration"></ng-container>
 
-    <div class="info-container">
-        You can change the basic settings of the Swiper area by clicking the buttons on the controls pane.
-    </div>
 
-    <div class="horizontal-container" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="stretch" fxFlex="auto">
-        <div class="vertical-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="50%">
-            <div class="box-title">Controls</div>
-
-            <div class="action-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleType()'>{{(type == "component") ? "Switch to directive" : "Switch to component"}}</div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleDirection()'>{{(config.direction == "horizontal") ? "Change to vertical" : "Change to horizontal"}}</div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleSlidesPerView()'>Toggle slides per view</div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleOverlayControls()'>Toggle overlay controls</div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleKeyboardControl()'>{{config.keyboard ? "Disable arrow keys" : "Enable arrow keys"}}</div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleMouseWheelControl()'>{{config.mousewheel ? "Disable mouse wheel" : "Enable mouse wheel"}}</div>
-            </div>
+<ng-template #configuration>
+    <div *ngIf="!sansPasseAlert && autoCompValid">
+        <div class="img-container-block">
+            <img src="{{selectedRef.url}}" alt="" style="width:40%">
         </div>
+        <span class="img-container-inline">
+            <p>{{selectedRef.title}}</p>
+        </span>
 
-        <div class="vertical-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="50%">
-            <div class="box-title">Swiper</div>
+        <form [formGroup]="margeRef" class="example-form">
+            <div class="grid-container">
+                <div class="grid-item"></div>
+                <div class="grid-item">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Haut en <strong>cm</strong> : </mat-label>
+                        <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedRef.haut" formControlName="hautForm" required>
+                        <mat-error *ngIf="checkError(margeRef, 'hautForm', 'required')">Champs obligatoire</mat-error>
+                        <mat-error *ngIf="checkError(margeRef,'hautForm', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="grid-item"></div>
+                <div class="grid-item">
 
-            <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
-                <swiper *ngIf="type == 'component' && show" class="swiper-container" fxFlex="auto" [config]="config" [disabled]="disabled" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
-                    <div *ngFor="let slide of slides" class="swiper-slide">
-                        <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-                            <img src="{{refs.url}}" alt="">
-                        </div>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Gauche en <strong>cm</strong> : </mat-label>
+                        <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedRef.gauche" formControlName="gaucheForm" required>
+                        <mat-error *ngIf="checkError(margeRef,'gaucheForm', 'required')">Champs obligatoire</mat-error>
+                        <mat-error *ngIf="checkError(margeRef,'gaucheForm', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="grid-item">
+                    <img src="{{selectedRef.url}}" alt="" class="image">
+                </div>
+                <div class="grid-item">
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Droit en <strong>cm</strong> : </mat-label>
+                        <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedRef.droit" formControlName="droitForm" required>
+                        <mat-error *ngIf="checkError(margeRef,'droitForm', 'required')">Champs obligatoire</mat-error>
+                        <mat-error *ngIf="checkError(margeRef,'droitForm', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="grid-item"></div>
+                <div class="grid-item">
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Bas en <strong>cm</strong> : </mat-label>
+                        <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedRef.bas" formControlName="basForm" required>
+                        <mat-error *ngIf="checkError(margeRef,'basForm', 'required')">Champs obligatoire</mat-error>
+                        <mat-error *ngIf="checkError(margeRef,'basForm', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="grid-item">
+                </div>
+                <div class="grid-item">
+                    <div *ngIf="margeRef.valid">
+                        <p><strong>Validation</strong></p>
+                        <p>Recapitulatif:</p>
+                        <ul style="list-style:outside;">
+                            <li>{{selectedRef.title}}</li>
+                            <li>haut: {{selectedRef.haut}}cm</li>
+                            <li>bas: {{selectedRef.bas}}cm</li>
+                            <li>gauche: {{selectedRef.gauche}}cm</li>
+                            <li>droit: {{selectedRef.droit}}cm</li>
+                        </ul>
                     </div>
-                </swiper>
-
-                <div *ngIf="type == 'directive' && show" class="swiper-container" [disabled]="disabled" [swiper]="config" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
-                    <div class="swiper-wrapper">
-                        <div *ngFor="let slide of slides" class="swiper-slide">
-                            <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-                                {{slide}}
-                            </div>
-                        </div>
+                </div>
+                <div class="grid-item">
+                    <div *ngIf='errorMargeInf' style="color: red;">
+                        La dimension totale du cadre avec passe-partout doit être supérieure à 15 cm par 15 cm. Veuillez modifier la taille des marges.
                     </div>
-
-                    <div class="swiper-scrollbar" [hidden]="config.scrollbar === false"></div>
-                    <div class="swiper-pagination" [hidden]="config.pagination === false"></div>
-
-                    <div class="swiper-button-prev" [hidden]="config.navigation === false"></div>
-                    <div class="swiper-button-next" [hidden]="config.navigation === false"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
-
-<!-- <div class="box-container" fxLayout="column" [ngStyle.lt-sm]="'min-height: 800px;'">
-    <div class="app-title">Simple example app for the ngx-swiper-wrapper</div>
-
-    <div class="info-container">
-        You can change the basic settings of the Swiper area by clicking the buttons on the controls pane.
-    </div>
-
-    <div class="horizontal-container" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="stretch" fxFlex="auto">
-        <div class="vertical-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="50%">
-            <div class="box-title">Controls</div>
-
-            <div class="action-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleType()'>
-                    {{(type == "component") ? "Switch to directive" : "Switch to component"}}
-                </div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleDirection()'>
-                    {{(config.direction == "horizontal") ? "Change to vertical" : "Change to horizontal"}}
-                </div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleSlidesPerView()'>
-                    Toggle slides per view
-                </div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleOverlayControls()'>
-                    Toggle overlay controls
-                </div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleKeyboardControl()'>
-                    {{config.keyboard ? "Disable arrow keys" : "Enable arrow keys"}}
-                </div>
-
-                <div class="action-button" fxLayout="column" fxLayoutAlign="center" fxFlex="auto" (click)='toggleMouseWheelControl()'>
-                    {{config.mousewheel ? "Disable mouse wheel" : "Enable mouse wheel"}}
-                </div>
-            </div>
-        </div>
-
-        <div class="vertical-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="50%">
-            <div class="box-title">Swiper</div>
-
-            <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
-                <swiper *ngIf="type == 'component' && show" class="swiper-container" fxFlex="auto" [config]="config" [disabled]="disabled" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
-                    <div *ngFor="let slide of slides" class="swiper-slide">
-                        <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-                            <img [src]="slide" alt="image" class="slide">
-                        </div>
+                    <div *ngIf='errorMargeSup' style="color: red;">
+                        La dimension total du cadre avec passe-partout doit être inférieure à 80 cm par 120 cm (portrait ou paysage). Veuillez modifier la taille des marges.
                     </div>
-                </swiper>
-
-                <div *ngIf="type == 'directive' && show" class="swiper-container" [disabled]="disabled" [swiper]="config" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
-                    <div class="swiper-wrapper">
-                        <div *ngFor="let slide of slides" class="swiper-slide">
-                            <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-                                <img [src]="slide" alt="image" class="slide">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-scrollbar" [hidden]="config.scrollbar === false"></div>
-                    <div class="swiper-pagination" [hidden]="config.pagination === false"></div>
-
-                    <div class="swiper-button-prev" [hidden]="config.navigation === false"></div>
-                    <div class="swiper-button-next" [hidden]="config.navigation === false"></div>
+                </div>
+                <div class="grid-item main-nav">
+                    <ul>
+                        <li>
+                            <button mat-raised-button type="submit" [disabled]="!margeRef.valid" color="primary" style="width: 20em;" (click)='margeCheckError()'>Valider</button>
+                        </li>
+                        <li>
+                            <button mat-raised-button type="reset" color="accent" (click)="resetPasse()" style="width: 20em;">Réinitialiser passe partout</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </form>
+    </div>
+</ng-template>
+
+
+
+
+
+
+<!-- Template conditionPasse -->
+<ng-template #conditionPasse>
+    <div class="box">
+        <div>
+            Vous avez renseigné un sujet qui est supérieur à 74 cm x 114 cm (portrait ou paysage), il n’est pas possible de configurer un passe-partout.
+        </div>
+        <div class="main-nav">
+            <ul>
+                <li>
+                    <button mat-raised-button routerLink='/config' color="primary" style="width: 20em;">Modifier les dimensions</button>
+                </li>
+                <li>
+                    <button mat-raised-button color="accent" style="width: 20em;">Passe à l’étape suivante</button>
+                </li>
+            </ul>
         </div>
     </div>
-</div> -->
+</ng-template>
 
 
 
 
+<!-- Passe Alert -->
 
-
-<div *ngIf='confRef'>
-    <div *ngFor='let refs of ref' class="blog-slider" fxLayout="column">
-        <div class="blog-slider__wrp">
-            <div class="blog-slider__item">
-                <img class="blog-slider__img" src="{{refs.url}}" alt="">
-                <div class="blog-slider__content">
-                    <span class="blog-slider__code">{{refs.title}}</span>
-                    <!-- <div class="blog-slider__title"></div> -->
-                    <div class="example-container">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Haut en cm</mat-label>
-                            <input matInput #input type='number'>
-                            <mat-hint align="end">ex : 3,5 cm</mat-hint>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>Bas en cm</mat-label>
-                            <input matInput #input type='number'>
-                            <mat-hint align="end">ex : 3,5 cm</mat-hint>
-                        </mat-form-field>
-                    </div>
-                    <div class="example-container">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Droite en cm</mat-label>
-                            <input matInput #input type='number'>
-                            <mat-hint align="end">ex : 3,5 cm</mat-hint>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>Gauche en cm</mat-label>
-                            <input matInput #input type='number'>
-                            <mat-hint align="end">ex : 3,5 cm</mat-hint>
-                        </mat-form-field>
-                    </div>
-                    <a href="#" class="blog-slider__button">Valider</a>
-                </div>
-            </div>
-        </div>
+<div class="box" *ngIf="sansPasseAlert">
+    <div>
+        Dans le cas d’un encadrement sans passe—partout, la dimension du sujet doit être supérieure à 15 cm par 15 cm
+    </div>
+    <div class="main-nav">
+        <ul>
+            <li>
+                <button mat-raised-button routerLink='/config' color="primary" style="width: 20em;">Modifier les dimensions</button>
+            </li>
+        </ul>
     </div>
 </div>
 
 
 
-<!-- <form>
-    <div class="cc-selector">
-        <input id="visa" type="radio" name="credit-card" value="4" />
-        <label class="drinkcard-cc visa" for="visa"></label>
-        <input id="mastercard" type="radio" name="credit-card" value="mastercard" />
-        <label class="drinkcard-cc mastercard" for="mastercard"></label>
-    </div>
-</form> -->
+<!-- ******************** Je souhaite configurer mon passe************************************** -->
+<div *ngIf='personaliser'>
+    <ng-container *ngIf="hauteur > 70 && longueur> 70; then sansBiseau; else withBiseau"></ng-container>
+    <ng-template #sansBiseau>
+        <div class="radio--card-group">
+            <div *ngFor='let passe of passes | slice:0:4' class="radio--card__item">
+                <input (change)="onCheck()" [(ngModel)]="selectedPasse" id="{{passe.id}}" value="M" name="gender" type="radio" [value]="passe">
+                <label for="{{passe.id}}"></label>
+                <div class="radio--card__content">
+                    <img class="radio--card__img" src="{{passe.url}}" alt="">
+                    <p class="radio--card__text">{{passe.title}}</p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #withBiseau>
+        <div class="radio--card-group">
+            <div *ngFor='let passe of passes' class="radio--card__item">
+                <input (change)="onCheck()" [(ngModel)]="selectedPasse" id="{{passe.id}}" value="M" name="gender" type="radio" [value]="passe">
+                <label for="{{passe.id}}"></label>
+                <div class="radio--card__content">
+                    <img class="radio--card__img" src="{{passe.url}}" alt="">
+                    <p class="radio--card__text">{{passe.title}}</p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
 
 
 
-<!-- ********************************************************** -->
-
-
-<div *ngIf='personaliser' class="radio--card-group">
-    <div class="radio--card__item">
-        <input id="id_gender_0" value="M" name="gender" type="radio">
-        <label for="id_gender_0"></label>
-        <div class="radio--card__content">
-            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
-            <p class="radio--card__text">Simple</p>
+    <!-- colors -->
+    <div class="radio--card-group">
+        <div *ngIf="(selectedPasse | json) != '{}'" class="colors">
+            <ul *ngFor='let color of selectedPasse.colors'>
+                <li>
+                    <label>
+              <input type="radio" name="color" [value]="color.label">
+              <div class="swatch" [ngStyle]="{ 'background-color': '#' + color.value}"></div>
+              <div>{{color.label}}</div>
+            </label>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="radio--card__item">
-        <input id="id_gender_1" value="M" name="gender" type="radio">
-        <label for="id_gender_1"></label>
-        <div class="radio--card__content">
-            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
-            <p class="radio--card__text">Double</p>
+
+    <!-- ovale Rect -->
+    <div *ngIf="(selectedPasse | json) != '{}'" class="grid-containerOval">
+        <div *ngIf="selectedPasse.rectangle">
+            <label for="rectangle" style="cursor: pointer; display: inline;">
+            <input type="radio" name="rectangle/oval" id="rectangle" value="rectangle" style="display: none;">
+            <div class="grid-itemOval swatch1">
+                <img src="/assets/images/paysage.jpg" style="object-fit: cover; width: 100%; height: 80%;" alt="">
+                <div>Rectangle</div>   
+            </div>
+        </label>
+        </div>
+
+
+        <div *ngIf="selectedPasse.ovale">
+            <label for="oval" style="cursor: pointer; display: inline;">
+            <input type="radio" name="rectangle/oval" value="oval" id="oval" style="display: none;">
+            <div class="grid-itemOval swatch1">
+                <img id="oval" src="/assets/images/paysage.jpg" style="object-fit: cover; width: 100%; height: 100%; max-height: 100%;" alt="">
+                <div>Ovale</div>
+            </div>
+        </label>
         </div>
     </div>
-    <div class="radio--card__item">
-        <input id="id_gender_2" value="M" name="gender" type="radio">
-        <label for="id_gender_2"></label>
-        <div class="radio--card__content">
-            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
-            <p class="radio--card__text">Epais</p>
+
+
+    <!-- Taille Marge SelectedPasse  -->
+    <!-- Simple -->
+
+    <div *ngIf="(selectedPasse | json) != '{}'">
+        <div *ngIf="selectedPasse.title === 'Simple'">
+            <form [formGroup]="margeSimple" class="example-form">
+                <div class="grid-container">
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Haut en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.haut" formControlName="hautSimple" required>
+                            <mat-error *ngIf="checkError(margeSimple, 'hautSimple', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeSimple,'hautSimple', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeSimple,'hautSimple', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Gauche en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.gauche" formControlName="gaucheSimple" required>
+                            <mat-error *ngIf="checkError(margeSimple,'gaucheSimple', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeSimple,'gaucheSimple', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeSimple,'gaucheSimple', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                        <img src="{{selectedPasse.url}}" alt="" class="image">
+                    </div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Droit en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.droit" formControlName="droitSimple" required>
+                            <mat-error *ngIf="checkError(margeSimple,'droitSimple', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeSimple,'droitSimple', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeSimple,'droitSimple', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Bas en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.bas" formControlName="basSimple" required>
+                            <mat-error *ngIf="checkError(margeSimple,'basSimple', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeSimple,'basSimple', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeSimple,'basSimple', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                    </div>
+                    <div class="grid-item">
+                        <div *ngIf="margeSimple.valid">
+                            <p><strong>Validation</strong></p>
+                            <p>Recapitulatif:</p>
+                            <ul style="list-style:outside;">
+                                <li>{{selectedPasse.title}}</li>
+                                <li>haut: {{selectedFinalPasse.haut}}cm</li>
+                                <li>bas: {{selectedFinalPasse.bas}}cm</li>
+                                <li>gauche: {{selectedFinalPasse.gauche}}cm</li>
+                                <li>droit: {{selectedFinalPasse.droit}}cm</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div *ngIf='errorFinalPasseInf' style="color: red;">
+                            La dimension totale du cadre avec passe-partout doit être supérieure à 15 cm par 15 cm. Veuillez modifier la taille des marges.
+                        </div>
+                        <div *ngIf='errorFinalPasseSup' style="color: red;">
+                            La dimension total du cadre avec passe-partout doit être inférieure à 80 cm par 120 cm (portrait ou paysage). Veuillez modifier la taille des marges.
+                        </div>
+                    </div>
+                    <div class="grid-item main-nav">
+                        <ul>
+                            <li>
+                                <button mat-raised-button type="submit" [disabled]="!margeSimple.valid" color="primary" style="width: 20em;" (click)='finalPasseCheckError()'>Valider</button>
+                            </li>
+                            <li>
+                                <button mat-raised-button type="reset" color="accent" style="width: 20em;" (click)='resetPasseFinal()'>Réinitialiser passe partout</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="radio--card__item">
-        <input id="id_gender_3" value="M" name="gender" type="radio">
-        <label for="id_gender_3"></label>
-        <div class="radio--card__content">
-            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
-            <p class="radio--card__text">Simple avec Filet</p>
+
+    <!-- Epais -->
+    <div *ngIf="(selectedPasse | json) != '{}'">
+        <div *ngIf="selectedPasse.title === 'Epais'">
+            <form [formGroup]="margeEpais" class="example-form">
+                <div class="grid-container">
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Haut en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.haut" formControlName="hautEpais" required>
+                            <mat-error *ngIf="checkError(margeEpais, 'hautEpais', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeEpais,'hautEpais', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeEpais,'hautEpais', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Gauche en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.gauche" formControlName="gaucheEpais" required>
+                            <mat-error *ngIf="checkError(margeEpais,'gaucheEpais', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeEpais,'gaucheEpais', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeEpais,'gaucheEpais', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                        <img src="{{selectedPasse.url}}" alt="" class="image">
+                    </div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Droit en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.droit" formControlName="droitEpais" required>
+                            <mat-error *ngIf="checkError(margeEpais,'droitEpais', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeEpais,'droitEpais', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeEpais,'droitEpais', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Bas en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.bas" formControlName="basEpais" required>
+                            <mat-error *ngIf="checkError(margeEpais,'basEpais', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeEpais,'basEpais', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeEpais,'basEpais', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                    </div>
+                    <div class="grid-item">
+                        <div *ngIf="margeEpais.valid">
+                            <p><strong>Validation</strong></p>
+                            <p>Recapitulatif:</p>
+                            <ul style="list-style:outside;">
+                                <li>{{selectedPasse.title}}</li>
+                                <li>haut: {{selectedFinalPasse.haut}}cm</li>
+                                <li>bas: {{selectedFinalPasse.bas}}cm</li>
+                                <li>gauche: {{selectedFinalPasse.gauche}}cm</li>
+                                <li>droit: {{selectedFinalPasse.droit}}cm</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <!-- <div *ngIf='errorMargeInf' style="color: red;">
+                        La dimension totale du cadre avec passe-partout doit être supérieure à 15 cm par 15 cm. Veuillez modifier la taille des marges.
+                    </div>
+                    <div *ngIf='errorMargeSup' style="color: red;">
+                        La dimension total du cadre avec passe-partout doit être inférieure à 80 cm par 120 cm (portrait ou paysage). Veuillez modifier la taille des marges.
+                    </div> -->
+                    </div>
+                    <div class="grid-item main-nav">
+                        <ul>
+                            <li>
+                                <button mat-raised-button type="submit" [disabled]="!margeEpais.valid" color="primary" style="width: 20em;">Valider</button>
+                            </li>
+                            <li>
+                                <button mat-raised-button type="reset" color="accent" style="width: 20em;" (click)='resetPasseFinal()'>Réinitialiser passe partout</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="radio--card__item">
-        <input id="id_gender_4" value="M" name="gender" type="radio">
-        <label for="id_gender_4"></label>
-        <div class="radio--card__content">
-            <img class="radio--card__img" src="https://www.ikea.com/pimg/0638336_pe698860_s5.jpg?f=s" alt="">
-            <p class="radio--card__text">Biseau Anglais</p>
+
+    <!-- Biseau -->
+    <div *ngIf="(selectedPasse | json) != '{}'">
+        <div *ngIf="selectedPasse.title === 'Biseau Anglais'">
+            <form [formGroup]="margeBiseau" class="example-form">
+                <div class="grid-container">
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Haut en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.haut" formControlName="hautBiseau" required>
+                            <mat-error *ngIf="checkError(margeBiseau, 'hautBiseau', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeBiseau,'hautBiseau', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeBiseau,'hautBiseau', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Gauche en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.gauche" formControlName="gaucheBiseau" required>
+                            <mat-error *ngIf="checkError(margeBiseau,'gaucheBiseau', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeBiseau,'gaucheBiseau', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeBiseau,'gaucheBiseau', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                        <img src="{{selectedPasse.url}}" alt="" class="image">
+                    </div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Droit en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.droit" formControlName="droitBiseau" required>
+                            <mat-error *ngIf="checkError(margeBiseau,'droitBiseau', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeBiseau,'droitBiseau', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeBiseau,'droitBiseau', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Bas en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.bas" formControlName="basBiseau" required>
+                            <mat-error *ngIf="checkError(margeBiseau,'basBiseau', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeBiseau,'basBiseau', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeBiseau,'basBiseau', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                    </div>
+                    <div class="grid-item">
+                        <div *ngIf="margeBiseau.valid">
+                            <p><strong>Validation</strong></p>
+                            <p>Recapitulatif:</p>
+                            <ul style="list-style:outside;">
+                                <li>{{selectedPasse.title}}</li>
+                                <li>haut: {{selectedFinalPasse.haut}}cm</li>
+                                <li>bas: {{selectedFinalPasse.bas}}cm</li>
+                                <li>gauche: {{selectedFinalPasse.gauche}}cm</li>
+                                <li>droit: {{selectedFinalPasse.droit}}cm</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <!-- <div *ngIf='errorMargeInf' style="color: red;">
+                        La dimension totale du cadre avec passe-partout doit être supérieure à 15 cm par 15 cm. Veuillez modifier la taille des marges.
+                    </div>
+                    <div *ngIf='errorMargeSup' style="color: red;">
+                        La dimension total du cadre avec passe-partout doit être inférieure à 80 cm par 120 cm (portrait ou paysage). Veuillez modifier la taille des marges.
+                    </div> -->
+                    </div>
+                    <div class="grid-item main-nav">
+                        <ul>
+                            <li>
+                                <button mat-raised-button type="submit" [disabled]="!margeBiseau.valid" color="primary" style="width: 20em;">Valider</button>
+                            </li>
+                            <li>
+                                <button mat-raised-button type="reset" color="accent" style="width: 20em;" (click)='resetPasseFinal()'>Réinitialiser passe partout</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Double -->
+
+    <div *ngIf="(selectedPasse | json) != '{}'">
+        <div *ngIf="selectedPasse.title === 'Double'">
+            <form [formGroup]="margeDouble" class="example-form">
+                <div class="grid-container">
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Haut en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.haut" formControlName="hautDouble" required>
+                            <mat-error *ngIf="checkError(margeDouble, 'hautDouble', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeDouble,'hautDouble', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeDouble,'hautDouble', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3,5</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Gauche en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.gauche" formControlName="gaucheDouble" required>
+                            <mat-error *ngIf="checkError(margeDouble,'gaucheDouble', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeDouble,'gaucheDouble', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeDouble,'gaucheDouble', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3,5</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                        <img src="{{selectedPasse.url}}" alt="" class="image">
+                    </div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Droit en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.droit" formControlName="droitDouble" required>
+                            <mat-error *ngIf="checkError(margeDouble,'droitDouble', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeDouble,'droitDouble', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeDouble,'droitDouble', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3,5</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Bas en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.bas" formControlName="basDouble" required>
+                            <mat-error *ngIf="checkError(margeDouble,'basDouble', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeDouble,'basDouble', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeDouble,'basDouble', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>3,5</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                    </div>
+                    <div class="grid-item">
+                        <div *ngIf="margeDouble.valid">
+                            <p><strong>Validation</strong></p>
+                            <p>Recapitulatif:</p>
+                            <ul style="list-style:outside;">
+                                <li>{{selectedPasse.title}}</li>
+                                <li>haut: {{selectedFinalPasse.haut}}cm</li>
+                                <li>bas: {{selectedFinalPasse.bas}}cm</li>
+                                <li>gauche: {{selectedFinalPasse.gauche}}cm</li>
+                                <li>droit: {{selectedFinalPasse.droit}}cm</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <!-- <div *ngIf='errorMargeInf' style="color: red;">
+                        La dimension totale du cadre avec passe-partout doit être supérieure à 15 cm par 15 cm. Veuillez modifier la taille des marges.
+                    </div>
+                    <div *ngIf='errorMargeSup' style="color: red;">
+                        La dimension total du cadre avec passe-partout doit être inférieure à 80 cm par 120 cm (portrait ou paysage). Veuillez modifier la taille des marges.
+                    </div> -->
+                    </div>
+                    <div class="grid-item main-nav">
+                        <ul>
+                            <li>
+                                <button mat-raised-button type="submit" [disabled]="!margeDouble.valid" color="primary" style="width: 20em;">Valider</button>
+                            </li>
+                            <li>
+                                <button mat-raised-button type="reset" color="accent" style="width: 20em;" (click)='resetPasseFinal()'>Réinitialiser passe partout</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Filet -->
+
+    <div *ngIf="(selectedPasse | json) != '{}'">
+        <div *ngIf="selectedPasse.title === 'Simple avec filet'">
+            <form [formGroup]="margeFilet" class="example-form">
+                <div class="grid-container">
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Haut en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.haut" formControlName="hautFilet" required>
+                            <mat-error *ngIf="checkError(margeFilet, 'hautFilet', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeFilet,'hautFilet', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeFilet,'hautFilet', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>4</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Gauche en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.gauche" formControlName="gaucheFilet" required>
+                            <mat-error *ngIf="checkError(margeFilet,'gaucheFilet', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeFilet,'gaucheFilet', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeFilet,'gaucheFilet', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>4</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                        <img src="{{selectedPasse.url}}" alt="" class="image">
+                    </div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Droit en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.droit" formControlName="droitFilet" required>
+                            <mat-error *ngIf="checkError(margeFilet,'droitFilet', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeFilet,'droitFilet', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeFilet,'droitFilet', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>4</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Bas en <strong>cm</strong> : </mat-label>
+                            <input matInput placeholder="Ex : 2,5" [(ngModel)]="selectedFinalPasse.bas" formControlName="basFilet" required>
+                            <mat-error *ngIf="checkError(margeFilet,'basFilet', 'required')">Champs obligatoire</mat-error>
+                            <mat-error *ngIf="checkError(margeFilet,'basFilet', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                            <mat-error *ngIf="checkError(margeFilet,'basFilet', 'min')">Le champ aura une bordure de couleur rouge et la mention : « Les marges doivent être supérieures à <strong>4</strong> cm
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid-item">
+                    </div>
+                    <div class="grid-item">
+                        <div *ngIf="margeFilet.valid">
+                            <p><strong>Validation</strong></p>
+                            <p>Recapitulatif:</p>
+                            <ul style="list-style:outside;">
+                                <li>{{selectedPasse.title}}</li>
+                                <li>haut: {{selectedFinalPasse.haut}}cm</li>
+                                <li>bas: {{selectedFinalPasse.bas}}cm</li>
+                                <li>gauche: {{selectedFinalPasse.gauche}}cm</li>
+                                <li>droit: {{selectedFinalPasse.droit}}cm</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <!-- <div *ngIf='errorMargeInf' style="color: red;">
+                        La dimension totale du cadre avec passe-partout doit être supérieure à 15 cm par 15 cm. Veuillez modifier la taille des marges.
+                    </div>
+                    <div *ngIf='errorMargeSup' style="color: red;">
+                        La dimension total du cadre avec passe-partout doit être inférieure à 80 cm par 120 cm (portrait ou paysage). Veuillez modifier la taille des marges.
+                    </div> -->
+                    </div>
+                    <div class="grid-item main-nav">
+                        <ul>
+                            <li>
+                                <button mat-raised-button type="submit" [disabled]="!margeFilet.valid" color="primary" style="width: 20em;">Valider</button>
+                            </li>
+                            <li>
+                                <button mat-raised-button type="reset" color="accent" style="width: 20em;" (click)='resetPasseFinal()'>Réinitialiser passe partout</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
-
-<!-- colors -->
-<section>
-    <div *ngIf='personaliser' class="radio--card-group">
-        <div class="controls">
-            <div class="formGroup">
-
-                <div class="radio-colors radio-colors-orange">
-                    <input class="form-input-check" type="radio" id="orange" name="swatch2">
-                    <label for="orange"><span></span></label>
-                </div>
-
-                <div class="radio-colors radio-colors-red">
-                    <input class="form-input-check" type="radio" id="red" name="swatch2">
-                    <label for="red"><span></span></label>
-                </div>
-
-                <div class="radio-colors radio-colors-yellow">
-                    <input class="form-input-check" type="radio" id="yellow" name="swatch2">
-                    <label for="yellow"><span></span></label>
-                </div>
-
-                <div class="radio-colors radio-colors-blue">
-                    <input class="form-input-check" type="radio" id="blue" name="swatch2">
-                    <label for="blue"><span></span></label>
-                </div>
-
-                <div class="radio-colors radio-colors-green">
-                    <input class="form-input-check" type="radio" id="green" name="swatch2">
-                    <label for="green"><span></span></label>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</section>

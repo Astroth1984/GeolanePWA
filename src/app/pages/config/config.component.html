@@ -1,79 +1,104 @@
-<div fxLayout="column" fxLayoutAlign="space-around center">
-    <div class="container">
-        <main>
-            <mat-accordion class="example-headers-align prevent-click">
-                <mat-expansion-panel #panel1 [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
+<button mat-raised-button color="primary" routerLink='/encadrement' style="width: 8em;margin: 15px ;padding: 5px;"><mat-icon matPrefix>arrow_left</mat-icon> Reteur</button>
 
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            Contraintes de dimensionnement
-                            <mat-icon>account_circle</mat-icon>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
+<!-- <div class="example-container">
+    <form [formGroup]="dimensions" class="example-form">
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Largeur en <strong>cm</strong></mat-label>
-                        <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="longueur" required placeholder="Largeur en cm">
-                    </mat-form-field>
+        <h3>Dimensions du sujet à encadrer</h3>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Hauteur en <strong>cm</strong></mat-label>
-                        <input class="authorize-click" matInput type="number" min="1" [(ngModel)]="hauteur" required placeholder="Hauteur en cm">
-                    </mat-form-field>
-                    <mat-action-row>
-                        <button mat-button class="authorize-click" color="primary" (click)="panel2.toggle()">Next</button>
-                    </mat-action-row>
-                </mat-expansion-panel>
+        <p><span>
+                <mat-label>Largeur en <strong>cm</strong> : </mat-label>
+                <mat-form-field appearance="outline" class="example-full-width">
 
-                <mat-expansion-panel #panel2 [hideToggle]="true">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
+                    <input matInput placeholder="Ex : 30,5" [(ngModel)]="longueur" formControlName="largeurForm" required>
+                    <mat-hint align="end">la dimension du sujet doit être de 2 cm par 2 cm minimum et de 180 cm par 180 cm maximum</mat-hint>
+                    <mat-error *ngIf="checkError('largeurForm', 'required')">Champs obligatoire</mat-error>
+                    <mat-error *ngIf="checkError('largeurForm', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                    <mat-error *ngIf="checkError('largeurForm', 'min')">La dimension ne doit pas excéder 180 cm par 180 cm maximum et doit être au minimum de 2 cm par 2 cm.</mat-error>
+                    <mat-error *ngIf="checkError('largeurForm', 'max')">La dimension ne doit pas excéder 180 cm par 180 cm maximum et doit être au minimum de 2 cm par 2 cm.</mat-error>
+                </mat-form-field>
+            </span>
+        </p>
+        <p><span>
+                <mat-label>Hauteur en <strong>cm</strong> : </mat-label>
+                
+                <mat-form-field appearance="outline" class="example-full-width">
 
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            Contraintes d’orientation
-                            <mat-icon>remove_red_eye</mat-icon>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-
-                    <!-- <mat-form-field>
-                        <mat-label>Country</mat-label>
-                        <input class="authorize-click" matInput>
-                    </mat-form-field> -->
-                    <div fxLayout="column" fxLayoutAlign="space-around center">
-                        <ng-container *ngIf="hauteur > longueur; else elseBlock">
-                            <mat-card class="example-card">
-                                <mat-card-header>
-                                    <mat-card-title>Portrait</mat-card-title>
-                                </mat-card-header>
-                                <img mat-card-image src="https://ctl.s6img.com/society6/img/EAuHNimtSjSW_4lbK-uL3sdGdVY/w_1500/prints/~artwork/s6-original-art-uploads/society6/uploads/misc/b91b7386b323499ba16ad7824b5db748/~~/salvador-dali-portrait1123378-prints.jpg" alt="Portrait">
-                            </mat-card>
-                        </ng-container>
-                    </div>
-
-
-
-
-                    <mat-action-row>
-                        <button mat-button class="authorize-click" color="warn" (click)="panel1.toggle()">Previous</button>
-                        <button mat-button class="authorize-click" color="primary" (click)="nextStep()">Next</button>
-                    </mat-action-row>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </main>
-
-    </div>
+                    <input matInput placeholder="Ex : 50,5" [(ngModel)]="hauteur" formControlName="hauteurForm" required>
+                    <mat-hint align="end">la dimension du sujet doit être de 2 cm par 2 cm minimum et de 180 cm par 180 cm maximum</mat-hint>
+                    <mat-error *ngIf="checkError('hauteurForm', 'required')">Champs obligatoire</mat-error>
+                    <mat-error *ngIf="checkError('hauteurForm', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                    <mat-error *ngIf="checkError('hauteurForm', 'min')">La dimension ne doit pas excéder 180 cm par 180 cm maximum et doit être au minimum de 2 cm par 2 cm.</mat-error>
+                    <mat-error *ngIf="checkError('hauteurForm', 'max')">La dimension ne doit pas excéder 180 cm par 180 cm maximum et doit être au minimum de 2 cm par 2 cm.</mat-error>
+                </mat-form-field>
+            </span>
+        </p>
+        <button mat-raised-button routerLink='/pass-par-tout' type="submit" [disabled]="!dimensions.valid" color="primary" (click)='onSubmit()'>Valider</button>
+    </form>
 </div>
+<div *ngIf="dimensions.valid" class="container">
+    <ng-container *ngIf="hauteur > longueur; else second">
+        <img src="assets/images/portrait.jpg" alt="image" style="padding:4px;width:50%">
+        <p>Prortrait</p>
+    </ng-container>
+    <ng-template #second>
+        <ng-container *ngIf="hauteur < longueur; else third">
+            <img src="assets/images/paysage.jpg" alt="image" style="padding:4px;width:50%">
+            <p>Paysage</p>
+        </ng-container>
+    </ng-template>
+    <ng-template #third>
+        <img src="assets/images/carre.jpg" alt="image" style="padding:4px;width:50%">
+        <p>Carré</p>
+    </ng-template>
+</div> -->
 
 
-<ng-template #elseBlock>
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title>Paysage</mat-card-title>
-        </mat-card-header>
-        <img mat-card-image src="https://static.posters.cz/image/750/tableuax/salvador-dali-paysage-aux-papillons-i69847.jpg" alt="Paysage">
+<form [formGroup]="dimensions" class="example-form">
+    <div class="grid-container">
+        <div class="grid-item">
+            <mat-label>Largeur en <strong>cm</strong> : </mat-label>
+            <mat-form-field appearance="outline" class="example-full-width">
 
-    </mat-card>
-</ng-template>
+                <input matInput placeholder="Ex : 30,5" [(ngModel)]="longueur" formControlName="largeurForm" required>
+                <mat-hint align="end">la dimension du sujet doit être de 2 cm par 2 cm minimum et de 180 cm par 180 cm maximum</mat-hint>
+                <mat-error *ngIf="checkError('largeurForm', 'required')">Champs obligatoire</mat-error>
+                <mat-error *ngIf="checkError('largeurForm', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                <mat-error *ngIf="checkError('largeurForm', 'min')">La dimension ne doit pas excéder 180 cm par 180 cm maximum et doit être au minimum de 2 cm par 2 cm.</mat-error>
+                <mat-error *ngIf="checkError('largeurForm', 'max')">La dimension ne doit pas excéder 180 cm par 180 cm maximum et doit être au minimum de 2 cm par 2 cm.</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid-item">
+            <mat-label>Hauteur en <strong>cm</strong> : </mat-label>
+
+            <mat-form-field appearance="outline" class="example-full-width">
+
+                <input matInput placeholder="Ex : 50,5" [(ngModel)]="hauteur" formControlName="hauteurForm" required>
+                <mat-hint align="end">la dimension du sujet doit être de 2 cm par 2 cm minimum et de 180 cm par 180 cm maximum</mat-hint>
+                <mat-error *ngIf="checkError('hauteurForm', 'required')">Champs obligatoire</mat-error>
+                <mat-error *ngIf="checkError('hauteurForm', 'pattern')">Veuillez saisir les dimensions décimales avec une virgule et un seul chiffre derrière, par exemple : 50,5</mat-error>
+                <mat-error *ngIf="checkError('hauteurForm', 'min')">La dimension ne doit pas excéder 180 cm par 180 cm maximum et doit être au minimum de 2 cm par 2 cm.</mat-error>
+                <mat-error *ngIf="checkError('hauteurForm', 'max')">La dimension ne doit pas excéder 180 cm par 180 cm maximum et doit être au minimum de 2 cm par 2 cm.</mat-error>
+            </mat-form-field>
+
+        </div>
+        <div class="grid-item">
+            <button mat-raised-button routerLink='/pass-par-tout' type="submit" [disabled]="!dimensions.valid" color="primary" (click)='onSubmit()' style="width: 14em;">Valider</button>
+        </div>
+        <div *ngIf="dimensions.valid" class="container">
+            <ng-container *ngIf="hauteur > longueur; else second">
+                <img src="assets/images/portrait.jpg" alt="image" style="width:50%">
+                <p>Prortrait</p>
+            </ng-container>
+            <ng-template #second>
+                <ng-container *ngIf="hauteur < longueur; else third">
+                    <img src="assets/images/paysage.jpg" alt="image" style="width:100%; height: 100%;">
+                    <p>Paysage</p>
+                </ng-container>
+            </ng-template>
+            <ng-template #third>
+                <img src="assets/images/carre.jpg" alt="image" style="width:50%">
+                <p>Carré</p>
+            </ng-template>
+        </div>
+    </div>
+</form>
