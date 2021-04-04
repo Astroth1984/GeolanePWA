@@ -41,9 +41,16 @@ import {
 import { EncadrementComponent } from './pages/encadrement/encadrement.component';
 
 import { ControlValueAccessor } from '@angular/forms';
+import { BaguettesComponent } from './pages/baguettes/baguettes.component';
+import { FilterResultsComponent } from './pages/baguettes/filter-results/filter-results.component';
+import { VerticalFilterBarComponent } from './pages/baguettes/vertical-filter-bar/vertical-filter-bar.component';
+import { CheckboxFilterComponent } from './pages/baguettes/vertical-filter-bar/checkbox-filter/checkbox-filter.component';
+import { KeywordFilterComponent } from './pages/baguettes/vertical-filter-bar/keyword-filter/keyword-filter.component';
+import { RangeFilterComponent } from './pages/baguettes/vertical-filter-bar/range-filter/range-filter.component';
+import { ShowMoreModalComponent } from './pages/baguettes/vertical-filter-bar/checkbox-filter/show-more-modal/show-more-modal.component';
 
 
-
+import { SliderModule } from 'primeng/slider';
 
 
 @NgModule({
@@ -57,7 +64,14 @@ import { ControlValueAccessor } from '@angular/forms';
     ConfigComponent,
     PassParToutComponent,
     SearchBarComponent,
-    EncadrementComponent
+    EncadrementComponent,
+    BaguettesComponent,
+    FilterResultsComponent,
+    VerticalFilterBarComponent,
+    CheckboxFilterComponent,
+    KeywordFilterComponent,
+    RangeFilterComponent,
+    ShowMoreModalComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +96,8 @@ import { ControlValueAccessor } from '@angular/forms';
     MatChipsModule,
     ReactiveFormsModule,
     AutocompleteLibModule,
-    SwiperModule
+    SwiperModule,
+    SliderModule
 
   ],
   exports: [
